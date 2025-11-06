@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../../src/pages/HomePage';
+import { GaraePage } from '../../src/pages/GaragePage';
 /* 
 test.only('user can add cars' , async({page})=>{
 
@@ -30,19 +31,57 @@ test.only('user can add cars' , async({page})=>{
 
 
  test.describe('Check add cars' , ()=> {
-    
-    test.only('user can add cars' , async({page})=>{
 
+    let garagePage: GaraePage
+
+    test.beforeEach(async({page})=>{
+        const homePage = new HomePage(page)
+        await homePage.navigate()
+        garagePage = await homePage.loginAsGuest()
+    })
+
+test('verify', async ()=> {
+    await garagePage.addCarsBtn.click()
+    await expect.soft(garagePage.addBtn).toBeVisible()
+})
+
+    test('user can add cars' , async({page})=>{
+/*
 const homePage = new HomePage(page)
 await homePage.navigate()
 const garagePage = await  homePage.loginAsGuest()
+*/
+//test
+
+ await garagePage.addCarsBtn.click()
+ await garagePage.selectBrand('Porsche')
+ //await garagePage._addCarBrandSelect.selectOption('Porsche')
+ await garagePage.addCarModelSelect.selectOption('911')
+ await garagePage.addCarMiledge.fill('1234')
+ await garagePage.addBtn.click()
+
+ })
+
+test('user can add cars in cars list visible' , async({page})=>{
+/*
+//login
+const homePage = new HomePage(page)
+await homePage.navigate() 
+const garagePage = await  homePage.loginAsGuest()*/
 
 //test
- await garagePage._addCarsBtn.click()
- await garagePage._addCarBrandSelect.selectOption('Porsche')
- await garagePage._addCarModelSelect.selectOption('911')
- await garagePage._addCarMiledge.fill('12345')
- await garagePage._addBtn.click()
-    
+await garagePage.addCar('Porsche','911', 231231)
+await garagePage.addCar('Porsche','911', 21)
+await expect(garagePage.carItem).toHaveCount(2)
+
+ })
+
+ test.only('user can log out from garage' , async()=>{
+
+
+//test
+
+await garagePage.sideBar.logOutBtn.click()
+
  })
 })
