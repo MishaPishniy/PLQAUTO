@@ -4,9 +4,13 @@ import { defineConfig, devices } from '@playwright/test';
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+import dotenv, { config } from 'dotenv';
+import path from 'path';
+import { json } from 'stream/consumers';
+dotenv.config({ path: path.resolve(__dirname, '.env.qa') });
+
+console.log(process.env.TEST_ENV)
+config()
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -17,7 +21,19 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+  /*reporter: [
+     ['list'],
+     ['html', {open:'never'}],
+     ['json', { outputFile: 'reports/results.json' }]
+  ], */
+    reporter: [
+        ['list'],
+        ['html', {open:'never'}],
+        ['monocart-reporter', {  
+            name: "My Test Report",
+            outputFile: './monocart-report/index.html'
+        }]
+    ],
  // testIgnore: '**.skip.spec.ts',
   testMatch: '**.spec.ts',
  //  outputDir: 'res',
@@ -27,13 +43,17 @@ export default defineConfig({
   timeout: 60 * 1000,
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-   // baseURL: 'https://playwright.dev/',
+  baseURL: process.env.BASE_URL,
+  httpCredentials: {
+                  username: process.env.USER_NAME!,
+                  password: process.env.USER_PASS!
+                              },
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
     video: 'retain-on-failure',
     screenshot: 'on-first-failure',
-    headless: true,
+    headless: false,
   },
 
   /* Configure projects for major browsers */
@@ -46,10 +66,10 @@ export default defineConfig({
       use: {
         testIdAttribute: 'data-pw',
         headless: false,
-        baseURL: 'https://qauto.forstudy.space/',
+        baseURL: process.env.BASE_URL,
             httpCredentials: {
-                  username: 'guest',
-                  password: 'welcome2qauto'
+                  username: process.env.USER_NAME!,
+                  password: process.env.USER_PASS!
                               },
     trace: 'on',
       },

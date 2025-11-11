@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-     "test": "npx playwright test"
+    "test": "npx playwright test",
+    "test:qa": "set TEST_ENV=QA && npx playwright test --list",
+    "test:stage": "set TEST_ENV=STAGE && npx playwright test --list"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +14,11 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.56.1",
-    "@types/node": "^24.9.1"
+    "@types/node": "^24.9.1",
+    "dotenv": "^17.2.3",
+    "monocart-reporter": "^2.9.23"
+  },
+  "dependencies": {
+    "allure-playwright": "^3.4.2"
   }
 }

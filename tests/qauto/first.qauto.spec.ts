@@ -54,3 +54,4 @@ test('check layout', async({page})=>{
   await signInBtn.click()
   await expect(modal).toHaveScreenshot('sign-in-modal.png')
 })
+

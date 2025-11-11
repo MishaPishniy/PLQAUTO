@@ -83,5 +83,13 @@ await expect(garagePage.carItem).toHaveCount(2)
 
 await garagePage.sideBar.logOutBtn.click()
 
+ const localStorageValue = await  page.evaluate(()=>{
+    return localStorage.getItem('key');
  })
-})
+
+ await  page.evaluate(()=>{
+    localStorage.setItem('key', '1234');
+    
+ })
+}
+ }
