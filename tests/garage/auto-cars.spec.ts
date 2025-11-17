@@ -92,4 +92,4 @@ await garagePage.sideBar.logOutBtn.click()
     
  })
 }
- }
+ })

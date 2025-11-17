@@ -1,3 +1,3 @@
-export default function setup(){
-    console.log('GLOBAL SETUP!!!!!')
+export default  async function setup(){
+
 }
