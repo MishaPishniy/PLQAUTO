@@ -20,7 +20,7 @@ export default defineConfig({
   // globalTeardown: 'global-setup.ts',
   testMatch: '**.spec.ts',
   use: {
-    headless: true,
+    headless: false,
     baseURL: process.env.BASE_URL,
     httpCredentials: {
       username: process.env.USER_NAME!,

@@ -76,7 +76,7 @@ await expect(garagePage.carItem).toHaveCount(2)
 
  })
 
- test.only('user can log out from garage' , async()=>{
+ test('user can log out from garage' , async()=>{
 
 
 //test
@@ -92,4 +92,5 @@ await garagePage.sideBar.logOutBtn.click()
     
  })
 })
+
  })
