@@ -18,7 +18,7 @@ test('Cars models public request', async({request}) =>{
 })
 
 
-test.only ('/cars private request', async({request})=>{
+test ('/cars private request', async({request})=>{
 
     console.log('----storage state Before------');
     console.log(await request.storageState());
